@@ -8,11 +8,11 @@ define postfix::postconf (
     default => $key
   }
 
-  $key_value = "${real_key} = ${value}"
+  $key_value = "${real_key}=${value}"
 
   exec{"postconf_${real_key}":
     command => "postconf -e '${key_value}'",
-    unless  => "test \"\$(postconf ${real_key})\" = '$key_value'",
+    unless  => "test \"\$(postconf ${real_key} | sed -e 's/\\ //g')\" = '$key_value'",
     path    => $::path
   }
 }
