@@ -10,7 +10,7 @@ define postfix::postconf (
 
   $key_value = "${real_key}=${value}"
 
-  $stripped_value=regsubst($value,'\ ','')
+  $stripped_value=regsubst($value,'\ ','','G')
   $stripped_keyvalue = "${real_key}=${stripped_value}"
 
   exec{"postconf_${real_key}":
